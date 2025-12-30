@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contacto — Vivendas Sofia</title>
+  <style>
+    :root{
+      --bg:#f7f9fb;
+      --card:#ffffff;
+      --accent:#0366d6;
+      --muted:#6b7280;
+      --radius:12px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg,var(--bg),#eef3fb);
+      color:#0f172a;
+      padding:2rem;
+    }
+    .card{
+      width:100%;
+      max-width:820px;
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:0 6px 30px rgba(8,15,30,0.06);
+      padding:1.5rem;
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:1rem;
+    }
+    .fullwidth { grid-column: 1 / -1; }
+    h1{ margin:0 0 0.5rem 0; font-size:1.25rem; }
+    p.lead{ margin:0 0 1rem 0; color:var(--muted); }
+    form{ display:grid; gap:0.75rem; }
+    .row{ display:flex; gap:0.75rem; }
+    .row .field{ flex:1; }
+    label{ display:block; font-size:0.85rem; margin-bottom:0.25rem; color:#111827; }
+    input[type="text"], input[type="email"], input[type="tel"], textarea, select{
+      width:100%;
+      padding:0.6rem 0.75rem;
+      border:1px solid #e6e9ef;
+      border-radius:8px;
+      font-size:0.95rem;
+      background:white;
+      box-sizing:border-box;
+    }
+    textarea{ min-height:140px; resize:vertical; }
+    .muted{ font-size:0.85rem; color:var(--muted); }
+    .actions{ display:flex; gap:0.5rem; align-items:center; margin-top:0.25rem; }
+    button{
+      background:var(--accent);
+      color:white;
+      border:0;
+      padding:0.6rem 0.9rem;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    button[disabled]{ opacity:0.6; cursor:not-allowed; }
+    .secondary{
+      background:transparent;
+      color:var(--accent);
+      border:1px solid #dbeafe;
+    }
+    .status{ font-size:0.95rem; color:green; margin-left:0.5rem; }
+    .error{ color:#c02626; font-size:0.9rem; }
+    .contact-info{
+      background:#fbfdff;
+      border-radius:10px;
+      padding:1rem;
+      border:1px solid #eef5ff;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      gap:0.5rem;
+    }
+    .company{
+      font-weight:700;
+      font-size:1rem;
+    }
+    .info-row { display:flex; gap:0.5rem; align-items:center; font-size:0.95rem; color:#0b1220; }
+    .info-muted { color:var(--muted); font-size:0.85rem; }
+    a.contact-link { color:var(--accent); text-decoration:none; }
+    .hp { position:absolute !important; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
+    @media (max-width:880px){
+      .card{ grid-template-columns: 1fr; }
+    }
+    @media (max-width:520px){
+      .row{ flex-direction:column; }
+      .card{ padding:1rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="contactHeading">
+    <div class="fullwidth">
+      <h1 id="contactHeading">Contacto</h1>
+      <p class="lead">¿Tienes preguntas o quieres trabajar con Vivendas Sofia? Envíanos un mensaje o utiliza los datos de contacto que aparecen a la derecha.</p>
+    </div>
+
+    <form id="contactForm" action="#" method="POST" novalidate>
+      <!-- Honeypot: bots often fill this hidden field; humans won't -->
+      <label class="hp" for="website">Website (deja en blanco)</label>
+      <input class="hp" type="text" id="website" name="website" autocomplete="off" />
+
+      <div class="row">
+        <div class="field">
+          <label for="name">Nombre</label>
+          <input id="name" name="name" type="text" required placeholder="Tu nombre" />
+          <div class="error" id="err-name" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input id="email" name="email" type="email" required placeholder="tu@ejemplo.com" />
+          <div class="error" id="err-email" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="phone">Teléfono (opcional)</label>
+          <input id="phone" name="phone" type="tel" placeholder="+34 695 143 185" />
+          <div class="error" id="err-phone" aria-live="polite"></div>
+        </div>
+
+        <div class="field">
+          <label for="subject">Asunto (opcional)</label>
+          <input id="subject" name="subject" type="text" placeholder="Asunto breve" />
+        </div>
+      </div>
+
+      <div>
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" required placeholder="Escribe tu mensaje aquí..."></textarea>
+        <div class="error" id="err-message" aria-live="polite"></div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" id="sendBtn">Enviar</button>
+        <button type="button" id="resetBtn" class="secondary">Limpiar</button>
+        <div id="formStatus" class="status" role="status" aria-live="polite"></div>
+      </div>
+    </form>
+
+    <aside class="contact-info" aria-label="Información de contacto de Vivendas Sofia">
+      <div class="company">Vivendas Sofia</div>
+
+      <div class="info-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden focusable="false" role="img" aria-label="Teléfono">
+          <path d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5" stroke="#0b1220" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="#0b1220" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <div class="info-muted">Teléfono</div>
+          <!-- Mostramos el teléfono con espacios: 695 143 185 -->
+          <div><a class="contact-link" href="tel:+34695143185">695 143 185</a></div>
+        </div>
+      </div>
+
+      <div class="info-row" style="margin-top:0.5rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden focusable="false" role="img" aria-label="Correo">
+          <path d="M3 7l9 6 9-6" stroke="#0b1220" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="3" y="5" width="18" height="14" rx="2" stroke="#0b1220" stroke-width="1.2" fill="none"/>
+        </svg>
+        <div>
+          <div class="info-muted">Email</div>
+          <div>
+            <a class="contact-link" href="mailto:info@vivendassofias.com">info@vivendassofias.com</a><br />
+            <a class="contact-link" href="mailto:vivendassofia@gmail.com">vivendassofia@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-row" style="margin-top:0.5rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden focusable="false" role="img" aria-label="Dirección">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" stroke="#0b1220" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="12" cy="10" r="2.5" fill="#0b1220"/>
+        </svg>
+        <div>
+          <div class="info-muted">Dirección</div>
+          <!-- Dirección actualizada con código postal 08032 -->
+          <div><a class="contact-link" href="https://www.google.com/maps/search/?api=1&query=Paseo+Maragall+261+08032+Barcelona" target="_blank" rel="noopener">Paseo Maragall 261, 08032 Barcelona</a></div>
+        </div>
+      </div>
+
+      <div style="margin-top:auto; font-size:0.9rem; color:var(--muted);">
+        Horario: Lun–Vie 09:00–18:00
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    (function(){
+      const form = document.getElementById('contactForm');
+      const sendBtn = document.getElementById('sendBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const statusEl = document.getElementById('formStatus');
+
+      const errName = document.getElementById('err-name');
+      const errEmail = document.getElementById('err-email');
+      const errMessage = document.getElementById('err-message');
+      const errPhone = document.getElementById('err-phone');
+
+      function clearErrors(){
+        errName.textContent = '';
+        errEmail.textContent = '';
+        errMessage.textContent = '';
+        errPhone.textContent = '';
+        statusEl.textContent = '';
+        statusEl.style.color = '';
+      }
+
+      resetBtn.addEventListener('click', () => {
+        form.reset();
+        clearErrors();
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearErrors();
+
+        // Honeypot check
+        const hp = form.querySelector('input[name="website"]').value;
+        if (hp) {
+          statusEl.style.color = '#c02626';
+          statusEl.textContent = 'Error al enviar el formulario.';
+          return;
+        }
+
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const phone = form.phone.value.trim();
+        const message = form.message.value.trim();
+
+        let hasError = false;
+        if (!name) { errName.textContent = 'El nombre es obligatorio.'; hasError = true; }
+        if (!email) { errEmail.textContent = 'El correo es obligatorio.'; hasError = true; }
+        else {
+          const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!re.test(email)) { errEmail.textContent = 'Introduce un correo válido.'; hasError = true; }
+        }
+        if (phone) {
+          // simple international phone check (very permissive), allow spaces and dots
+          const pre = /^[+()0-9-\s\.]{6,20}$/;
+          if (!pre.test(phone)) { errPhone.textContent = 'Introduce un teléfono válido.'; hasError = true; }
+        }
+        if (!message) { errMessage.textContent = 'El mensaje es obligatorio.'; hasError = true; }
+
+        if (hasError) return;
+
+        sendBtn.disabled = true;
+        sendBtn.textContent = 'Enviando...';
+
+        // Replace this URL with your server endpoint that accepts POST requests.
+        // Example: const endpoint = 'https://tuservidor.com/api/contact';
+        const endpoint = '#';
+
+        try {
+          if (endpoint === '#') {
+            statusEl.style.color = 'green';
+            statusEl.textContent = 'Formulario listo para enviar. Cambia la constante "endpoint" en el script a tu API o servicio (Formspree, Netlify, etc.).';
+          } else {
+            const resp = await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name, email, phone, subject: form.subject.value.trim(), message })
+            });
+            if (!resp.ok) throw new Error('Error en el servidor');
+            statusEl.style.color = 'green';
+            statusEl.textContent = '¡Gracias! Tu mensaje se ha enviado correctamente.';
+            form.reset();
+          }
+        } catch (err) {
+          console.error(err);
+          statusEl.style.color = '#c02626';
+          statusEl.textContent = 'No se pudo enviar el mensaje. Intenta de nuevo más tarde.';
+        } finally {
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Enviar';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
